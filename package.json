@@ -1,0 +1,30 @@
+{
+  "name": "enternet-marketplace",
+  "version": "1.0.0",
+  "description": "Simple enternet marketplace when people have opportunity sale their thungs other people",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "online",
+    "shop",
+    "marketplace",
+    "sale"
+  ],
+  "author": "Vadim Mechiev <sudkurve@mail.ru>",
+  "license": "ISC",
+  "devDependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.11.4",
+    "uuid": "^8.3.1"
+  }
+}

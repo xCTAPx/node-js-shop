@@ -1,0 +1,32 @@
+<h1>Cart</h1>
+{{#if goods.length}}
+<table>
+    <tr>
+        <td class="table-header">Name</td>
+        <td class="table-header">Count</td>
+        <td class="table-header">Cost</td>
+        <td class="table-header">Actions</td>
+    </tr>
+    <tbody>
+        {{#each goods}}
+        <tr>
+            <td class="table-body">{{name}}</td>
+            <td class="table-body">{{count}}</td>
+            <td class="table-body price-format">{{price}}</td>
+            <td class="table-body">
+                <form action="/cart/remove" method="post">
+                    <input type="hidden" name="id" value={{id}}>
+                    <button type="submit" class="btn">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<p class="total">TOTAL: <span class="price-format">{{cost}}</span></p>
+<form action="/orders/add" method="POST">
+    <button type="submit" class="btn">Add new order</button>
+</form>
+{{else}}
+<p class="no-results">No goods yet...</p>
+{{/if}}

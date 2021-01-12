@@ -1,0 +1,115 @@
+body {
+  background-color: rgba(71, 71, 70, 0.959);
+  color: #fff;
+}
+
+.nav-wrapper {
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: rgba(36, 98, 60, 0.89);
+}
+
+.container {
+  width: 100%;
+}
+
+.nav-wrapper > a {
+  color: rgb(189, 201, 25);
+}
+
+.hide-on-med-and-down > li > a {
+  color: #fff;
+  font-size: 24px;
+}
+
+.page-title {
+  font-size: 28px;
+  text-align: center;
+}
+
+.validate {
+  color: #fff;
+}
+
+.no-results {
+  text-align: center;
+  padding-top: 100px;
+  font-size: 24px;
+}
+
+.card-content {
+  color: #000;
+  text-align: center;
+}
+
+.price {
+  font-size: 26px;
+  color: #000;
+  text-align: center;
+  padding-top: 15px;
+}
+
+.card {
+  background-color: rgb(255, 255, 255);
+}
+
+.image {
+  width: 40%;
+  border-radius: 20px;
+}
+
+.row-flex {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.info {
+  width: 40%;
+  color: #fff;
+}
+
+.about-price {
+  font-size: 24px;
+  color: #fff;
+}
+
+.card-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+td {
+  text-align: center;
+}
+
+tr {
+  border-color: #fff;
+}
+
+.total {
+  font-size: 24px;
+}
+
+.card-content {
+  color: #000;
+}
+
+.order__goods-list {
+  text-align: left;
+  padding-left: 180px;
+}
+
+.order__price {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.order__product__price {
+  text-align: right;
+}
+
+.login-form {
+  margin-top: 20px;
+}

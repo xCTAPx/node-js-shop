@@ -1,0 +1,53 @@
+Arguments: 
+  /usr/local/Cellar/node/14.8.0/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js add express-handlebars
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  14.8.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/vadim/Desktop/ExpressJS/package.json: Unexpected token } in JSON at position 264
+      at JSON.parse (<anonymous>)
+      at /usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:310:30)
+      at /usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "enternet-marketplace",
+    "version": "1.0.0",
+    "description": "Simple enternet marketplace when people have opportunity sale their thungs other people",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+    },
+    "keywords": [
+      "online",
+      "shop",
+      "marketplace",
+      "sale"
+    ],
+    "author": "Vadim Mechiev <sudkurve@mail.ru>",
+    "license": "ISC",
+    "devDependencies": {
+      "nodemon": "^2.0.6"
+    },
+    "dependencies": {
+      "uuid": "^8.3.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

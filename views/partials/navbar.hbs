@@ -1,0 +1,46 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="/" class="brand-logo">M_A_R_K_E_T</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {{#if isMain}}
+            <li class="active"><a href="/">Main</a></li>
+            {{else}}
+            <li><a href="/">Main</a></li>
+            {{/if}}
+
+            {{#if isGoods}}
+            <li class="active"><a href="/goods">Goods</a></li>
+            {{else}}
+            <li><a href="/goods">Goods</a></li>
+            {{/if}}
+
+            {{#if isAuth}}
+
+            {{#if isAdd}}
+            <li class="active"><a href="/add">Add product</a></li>
+            {{else}}
+            <li><a href="/add">Add product</a></li>
+            {{/if}}
+            {{#if isCart}}
+            <li class="active"><a href="/cart">Cart</a></li>
+            {{else}}
+            <li><a href="/cart">Cart</a></li>
+            {{/if}}
+            {{#if isOrders}}
+            <li class="active"><a href="/orders">Orders</a></li>
+            {{else}}
+            <li><a href="/orders">Orders</a></li>
+            {{/if}}
+            <li><a href="/login/logout">Logout</a></li>
+
+            {{else}}
+            {{#if isLogin}}
+            <li class="active"><a href="/login">Login</a></li>
+            {{else}}
+            <li><a href="/login">Login</a></li>
+            {{/if}}
+
+            {{/if}}
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,58 @@
+<h3>Edit product</h3>
+<div class="row">
+    <form class="col s5" action='/goods/edit' method="POST">
+        <div class="row">
+
+            <div class="row">
+                <div class="input-field col s10">
+                    <input id="name" name="name" type="text" class="validate" value="{{product.name}}" required>
+                    <label class="active" for="name">Product name</label>
+                    <span class="helper-text" data-error="Enter product name"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s10">
+                    <input id="description" name="description" type="text" class="validate"
+                        value="{{product.description}}" required>
+                    <label class="active" for="description">Description</label>
+                    <span class="helper-text" data-error="Enter description"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s10">
+                    <input id="price" name="price" type="number" class="validate" value="{{product.price}}" min="1"
+                        required>
+                    <label class="active" for="price">Price</label>
+                    <span class="helper-text" data-error="Enter correct price"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s10">
+                    <input id="img" name="image" type="text" class="validate" value="{{product.image}}" required>
+                    <label class="active" for="img">Image URL</label>
+                    <span class="helper-text" data-error="Enter URL"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s10">
+                    <input id="img" name="id" type="hidden" class="validate" value="{{product.id}}">
+                </div>
+            </div>
+
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit">Edit
+            <i class="material-icons right">product</i>
+        </button>
+    </form>
+
+    <form action="/goods/delete" method="POST">
+        <input type="text" name="id" value={{product.id}} hidden>
+        <button class="btn red" type="submit">Delete</button>
+    </form>
+
+</div>

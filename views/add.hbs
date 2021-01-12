@@ -1,0 +1,45 @@
+<h3>Add new product</h3>
+<div class="row">
+    <form class="col s5" action='/add' method="POST">
+        <div class="row">
+
+            <div class="row">
+                <div class="input-field col s10">
+                    <input id="name" name="name" type="text" class="validate" required>
+                    <label class="active" for="name">Product name</label>
+                    <span class="helper-text" data-error="Enter product name"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s10">
+                    <input id="desc" name="description" type="text" class="validate" required>
+                    <label class="active" for="desc">Short description</label>
+                    <span class="helper-text" data-error="Enter short description"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s10">
+                    <input id="price" name="price" type="number" class="validate" required min="1">
+                    <label class="active" for="price">Price</label>
+                    <span class="helper-text" data-error="Enter correct price"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s10">
+                    <input id="img" name="image" type="text" class="validate" required>
+                    <label class="active" for="img">Image URL</label>
+                    <span class="helper-text" data-error="Enter URL"></span>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit">Add
+            <i class="material-icons right">goods</i>
+        </button>
+
+    </form>
+</div>

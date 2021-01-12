@@ -1,0 +1,29 @@
+<h2>Goods</h2>
+{{#if goods.length}}
+{{#each goods}}
+<div class="row">
+    <div class="col offset-s4 s4">
+        <div class="card">
+            <div class="card-image">
+                <img src={{image}}>
+                <span class="card-title">{{name}}</span>
+            </div>
+            <div class="card-content">
+                <p>{{description}}</p>
+                <p class="price price-format">{{price}}</p>
+            </div>
+            <div class="card-action">
+                <a href='/goods/{{id}}'>More</a>
+                <a href='/goods/{{id}}/edit?allow=true'>Edit</a>
+                <form method="POST" action="/cart/add">
+                    <input type="hidden" name="id" value={{id}}>
+                    <button class="waves-effect waves-light btn" type="submit">Purchase</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
+{{else}}
+<p class="no-results">Here is no goods now</p>
+{{/if}}

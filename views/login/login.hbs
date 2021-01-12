@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s3 offset-s3"><a class="active" href="#login">Sign In</a></li>
+            <li class="tab col s3"><a href="#register">Sign Up</a></li>
+        </ul>
+    </div>
+    <div id="login" class="col s12">
+        <form class="col s4 offset-s4 login-form" action='/login/login' method="POST">
+            <div class="row">
+
+                <div class="row">
+                    <div class="input-field col s10">
+                        <input id="email" name="remail" type="email" class="validate" required>
+                        <label class="active" for="email">E-Mail</label>
+                        <span class="helper-text" data-error="Enter valid e-mail"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s10">
+                        <input id="password" name="password" type="password" class="validate" required>
+                        <label class="active" for="password">Password</label>
+                        <span class="helper-text" data-error="Enter valid password"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn waves-effect waves-light" type="submit">Sign In</button>
+
+        </form>
+
+
+    </div>
+    <div id="register" class="col s12">
+        <form class="col s4 offset-s4 login-form" action='/login/registration' method="POST">
+            <div class="row">
+
+                <div class="row">
+                    <div class="input-field col s10">
+                        <input id="remail" name="remail" type="email" class="validate" required>
+                        <label class="active" for="remail">E-Mail</label>
+                        <span class="helper-text" data-error="Enter valid e-mail"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s10">
+                        <input id="rpassword" name="password" type="password" class="validate" required>
+                        <label class="active" for="rpassword">Password</label>
+                        <span class="helper-text" data-error="Enter valid password"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s10">
+                        <input id="password-confirm" name="password-confirm" type="password" class="validate" required>
+                        <label class="active" for="password-confirm">Confirm password</label>
+                        <span class="helper-text" data-error="Enter equal password"></span>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="btn waves-effect waves-light" type="submit">Sign Up</button>
+
+        </form>
+    </div>
+</div>
