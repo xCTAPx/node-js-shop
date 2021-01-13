@@ -12,6 +12,7 @@
                 <p>{{description}}</p>
                 <p class="price price-format">{{price}}</p>
             </div>
+            {{#if @root.isAuth}}
             <div class="card-action">
                 <a href='/goods/{{id}}'>More</a>
                 <a href='/goods/{{id}}/edit?allow=true'>Edit</a>
@@ -20,6 +21,7 @@
                     <button class="waves-effect waves-light btn" type="submit">Purchase</button>
                 </form>
             </div>
+            {{/if}}
         </div>
     </div>
 </div>

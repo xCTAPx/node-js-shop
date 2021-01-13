@@ -10,7 +10,7 @@ router.get('/',(req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    const user = await User.findById('5fdc688f87ab11069f7340d5')
+    const user = await User.findById('5ffea8d9255d4f06448cc56f')
     req.session.user = user
     req.session.isAuth = true
     req.session.save(e => {

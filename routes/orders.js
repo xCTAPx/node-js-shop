@@ -1,5 +1,6 @@
 const {Router} = require('express')
 const Order = require('../models/order')
+const routes = require('../middlewares/routes')
 
 const router = new Router()
 
@@ -11,7 +12,7 @@ const mapGoods = cart => cart.items.map(item => ({
     price: item.productId._doc.price * item.count
 }))
 
-router.get('/', async (req, res) => {
+router.get('/', routes, async (req, res) => {
     const orders = await Order.find({
         'user.userId': req.user._id
     })
@@ -22,7 +23,7 @@ router.get('/', async (req, res) => {
     })
 })
 
-router.post('/add', async (req, res) => {
+router.post('/add', routes, async (req, res) => {
     
     const customer = {
         name: req.user.name,

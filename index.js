@@ -12,10 +12,25 @@ const ordersRoute = require('./routes/orders')
 const loginRoute = require('./routes/login')
 
 const varMiddleware = require('./middlewares/variables')
+const userMiddleware = require('./middlewares/user')
 
 const session = require('express-session')
+const MongoDBStore = require('connect-mongodb-session')(session)
 
-const User = require('./models/user')
+
+const DB_URL = 'mongodb+srv://vadim:R1hbF7N5pidzxsPD@cluster0.gth8d.mongodb.net/store?retryWrites=true&w=majority'
+
+const PORT = process.env.PORT || 3000
+
+
+const store = new MongoDBStore({
+    uri: DB_URL,
+    collection: 'sessions'
+})
+
+store.on('error', e => {
+    console.log(e)
+})
 
 const app = express()
 
@@ -34,10 +49,12 @@ app.use(express.urlencoded({extended: true}))
 app.use(session({
     secret: 'default',
     saveUninitialized: true,
-    resave: false
+    resave: true,
+    store
 }))
 
 app.use(varMiddleware)
+app.use(userMiddleware)
 
 app.use('/', mainRoute)
 app.use('/add', addRoute)
@@ -50,25 +67,9 @@ app.use((req, res) => {
     res.status(404).send('Error 404')
 })
 
-const DB_URL = 'mongodb+srv://vadim:R1hbF7N5pidzxsPD@cluster0.gth8d.mongodb.net/store?retryWrites=true&w=majority'
-
-
-const PORT = process.env.PORT || 3000
-
 const start = async () => {
     try {
         mongoose.connect(DB_URL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true})
-
-    //    const candidate = await User.findOne()
-
-    //     if(!candidate) {
-    //         const user = new User({
-    //             name: 'Vadim',
-    //             email: 'sudkurve@mail.ru',
-    //         })
-
-    //         user.save()
-    //     }
 
         app.listen(PORT, () => {
             console.log(`Server has been started on port ${PORT}`)
