@@ -1,5 +1,3 @@
-const Product = require('./product')
-
 const {Schema, model} = require('mongoose')
 
 const userSchema = new Schema({
@@ -8,6 +6,10 @@ const userSchema = new Schema({
         required: true
     },
     name: {
+        type: String,
+        required: true
+    },
+    password: {
         type: String,
         required: true
     },
