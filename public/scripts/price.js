@@ -16,7 +16,7 @@ const dates = document.querySelectorAll('.date-format')
 
 const formatDate = date => {
     const orderDate = new Date(date.textContent)
-    const formattedDate = orderDate.getDate() + '.' + orderDate.getMonth() + '.' + orderDate.getFullYear()
+    const formattedDate = `${orderDate.getDate()}.${orderDate.getMonth() + 1}.${orderDate.getFullYear()} at ${orderDate.getHours()}:${orderDate.getMinutes()}`
     date.textContent = formattedDate
 }
 

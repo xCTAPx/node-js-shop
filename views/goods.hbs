@@ -18,6 +18,7 @@
                 <a href='/goods/{{id}}/edit?allow=true'>Edit</a>
                 <form method="POST" action="/cart/add">
                     <input type="hidden" name="id" value={{id}}>
+                    <input name="_csrf" value={{@root.csrfToken}} type='hidden'>
                     <button class="waves-effect waves-light btn" type="submit">Purchase</button>
                 </form>
             </div>

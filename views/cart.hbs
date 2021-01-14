@@ -16,6 +16,7 @@
             <td class="table-body">
                 <form action="/cart/remove" method="post">
                     <input type="hidden" name="id" value={{id}}>
+                    <input name="_csrf" value={{@root.csrfToken}} type='hidden'>
                     <button type="submit" class="btn">Delete</button>
                 </form>
             </td>
@@ -25,6 +26,7 @@
 </table>
 <p class="total">TOTAL: <span class="price-format">{{cost}}</span></p>
 <form action="/orders/add" method="POST">
+    <input name="_csrf" value={{csrfToken}} type='hidden'>
     <button type="submit" class="btn">Add new order</button>
 </form>
 {{else}}

@@ -45,6 +45,8 @@
 
         </div>
 
+        <input name="_csrf" value={{csrfToken}} type='hidden'>
+
         <button class="btn waves-effect waves-light" type="submit">Edit
             <i class="material-icons right">product</i>
         </button>
@@ -52,6 +54,7 @@
 
     <form action="/goods/delete" method="POST">
         <input type="text" name="id" value={{product.id}} hidden>
+        <input name="_csrf" value={{csrfToken}} type='hidden'>
         <button class="btn red" type="submit">Delete</button>
     </form>
 
