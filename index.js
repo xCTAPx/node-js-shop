@@ -69,7 +69,7 @@ app.use((req, res) => {
 
 const start = async () => {
     try {
-        mongoose.connect(DB_URL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: true})
+        mongoose.connect(DB_URL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
 
         app.listen(PORT, () => {
             console.log(`Server has been started on port ${PORT}`)

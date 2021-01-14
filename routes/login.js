@@ -1,5 +1,6 @@
 const {Router} = require('express')
 const User = require('../models/user')
+const bcrypt = require('bcryptjs')
 
 const router = Router()
 
@@ -16,7 +17,7 @@ router.post('/login', async (req, res) => {
 
     if(!candidate) return res.redirect('/login#login')
 
-    if(candidate.password === password) {
+    if(bcrypt.compare(password, candidate.password)) {
         req.session.user = candidate
         req.session.isAuth = true
         req.session.save(e => {
@@ -45,10 +46,12 @@ router.post('/registration', async (req, res) => {
     const VALID = !NOT_UNIQUE_EMAIL && VALID_PASSWORD_CONFIRMATION
 
     if(VALID) {
+        const encryptedPessword = await bcrypt.hash(password, 10)
+
         const user = new User({
             email,
             name,
-            password,
+            password: encryptedPessword,
             cart: {
                 items: []
             }
