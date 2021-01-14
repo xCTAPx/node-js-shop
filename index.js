@@ -17,6 +17,7 @@ const userMiddleware = require('./middlewares/user')
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
 const csurf = require('csurf')
+const flash = require('connect-flash')
 
 
 const DB_URL = 'mongodb+srv://vadim:R1hbF7N5pidzxsPD@cluster0.gth8d.mongodb.net/store?retryWrites=true&w=majority'
@@ -57,6 +58,7 @@ app.use(session({
 app.use(csurf())
 app.use(varMiddleware)
 app.use(userMiddleware)
+app.use(flash())
 
 app.use('/', mainRoute)
 app.use('/add', addRoute)

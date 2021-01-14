@@ -5,8 +5,12 @@ const bcrypt = require('bcryptjs')
 const router = Router()
 
 router.get('/',(req, res) => {
+    const loginError = req.flash('loginError')
+    const registerError = req.flash('registerError')
     res.render('login/login', {
         isLogin: true,
+        loginError,
+        registerError
     })
 })
 
@@ -15,9 +19,14 @@ router.post('/login', async (req, res) => {
 
     const candidate = await User.findOne({email})
 
-    if(!candidate) return res.redirect('/login#login')
+    if(!candidate) {
+        req.flash('loginError', 'Wrong email and/or password')
+        return res.redirect('/login#login')
+    }
 
-    if(bcrypt.compare(password, candidate.password)) {
+    const VALID_PASSWORD = await bcrypt.compare(password, candidate.password)
+
+    if(VALID_PASSWORD) {
         req.session.user = candidate
         req.session.isAuth = true
         req.session.save(e => {
@@ -28,6 +37,7 @@ router.post('/login', async (req, res) => {
             res.redirect('/')
         })
     } else {
+        req.flash('loginError', 'Wrong email and/or password')
         res.redirect('/login#login')
     }
 })
@@ -43,26 +53,30 @@ router.post('/registration', async (req, res) => {
 
     const VALID_PASSWORD_CONFIRMATION = password === passwordConfirm
     const NOT_UNIQUE_EMAIL = await User.findOne({email})
-    const VALID = !NOT_UNIQUE_EMAIL && VALID_PASSWORD_CONFIRMATION
 
-    if(VALID) {
-        const encryptedPessword = await bcrypt.hash(password, 10)
-
-        const user = new User({
-            email,
-            name,
-            password: encryptedPessword,
-            cart: {
-                items: []
-            }
-        })
-
-        await user.save()
-
-        res.redirect('/login#login')
-    } else {
-        res.redirect('/login#register')
+    if(NOT_UNIQUE_EMAIL) {
+        req.flash('registerError', 'User with this email has already registered')
+        return res.redirect('/login#register')
     }
+
+    if(!VALID_PASSWORD_CONFIRMATION) {
+        req.flash('registerError', 'Password has been confirmed wrong')
+        return res.redirect('/login#register')
+    }
+    const encryptedPessword = await bcrypt.hash(password, 10)
+
+    const user = new User({
+        email,
+        name,
+        password: encryptedPessword,
+        cart: {
+            items: []
+        }
+    })
+
+    await user.save()
+
+    res.redirect('/login#login')
 })
 
 module.exports = router

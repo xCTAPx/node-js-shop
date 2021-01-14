@@ -9,6 +9,10 @@
         <form class="col s4 offset-s4 login-form" action='/login/login' method="POST">
             <div class="row">
 
+                {{#if loginError}}
+                <div class="login-error">{{loginError}}</div>
+                {{/if}}
+
                 <div class="row">
                     <div class="input-field col s10">
                         <input id="email" name="email" type="email" class="validate" required>
@@ -38,6 +42,10 @@
     <div id="register" class="col s12">
         <form class="col s4 offset-s4 login-form" action='/login/registration' method="POST">
             <div class="row">
+
+                {{#if registerError}}
+                <div class="login-error">{{registerError}}</div>
+                {{/if}}
 
                 <div class="row">
                     <div class="input-field col s10">

@@ -113,3 +113,12 @@ tr {
 .login-form {
   margin-top: 20px;
 }
+
+.login-error {
+  color: rgb(243, 8, 8);
+  text-align: center;
+  padding: 10px;
+  border: 1px solid rgb(243, 8, 8);
+  border-radius: 7px;
+  background-color: rgb(209, 129, 129);
+}
