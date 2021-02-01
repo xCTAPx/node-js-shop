@@ -14,19 +14,17 @@ const loginRoute = require('./routes/login')
 const varMiddleware = require('./middlewares/variables')
 const userMiddleware = require('./middlewares/user')
 
+const keys = require('./keys')
+
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
 const csurf = require('csurf')
 const flash = require('connect-flash')
 
-
-const DB_URL = 'mongodb+srv://vadim:R1hbF7N5pidzxsPD@cluster0.gth8d.mongodb.net/store?retryWrites=true&w=majority'
-
 const PORT = process.env.PORT || 3000
 
-
 const store = new MongoDBStore({
-    uri: DB_URL,
+    uri: keys.DB_URL,
     collection: 'sessions'
 })
 
@@ -49,7 +47,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
 
 app.use(session({
-    secret: 'default',
+    secret: keys.SESSION_SECRET,
     saveUninitialized: true,
     resave: true,
     store
@@ -73,7 +71,7 @@ app.use((req, res) => {
 
 const start = async () => {
     try {
-        mongoose.connect(DB_URL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+        mongoose.connect(keys.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
 
         app.listen(PORT, () => {
             console.log(`Server has been started on port ${PORT}`)

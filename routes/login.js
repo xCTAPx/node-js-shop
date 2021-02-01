@@ -1,6 +1,7 @@
 const {Router} = require('express')
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
+const sendMessage = require('../nodemailer')
 
 const router = Router()
 
@@ -77,6 +78,13 @@ router.post('/registration', async (req, res) => {
     await user.save()
 
     res.redirect('/login#login')
+
+    sendMessage(email, {
+        subject: 'Registration',
+        text: `<h1>Registration is successful</h1>
+        <p>You have registered successful! Visit our website and sign in:</p>
+        <a href="http://127.0.0.1:3000/login/">go to the market</a>`
+    })
 })
 
 module.exports = router
