@@ -81,8 +81,8 @@ router.post('/registration', async (req, res) => {
 
     sendMessage(email, {
         subject: 'Registration',
-        text: `<h1>Registration is successful</h1>
-        <p>You have registered successful! Visit our website and sign in:</p>
+        html: `<h1>Registration is successful</h1>
+        <p>${name}, you have registered successful! Visit our website and sign in:</p>
         <a href="http://127.0.0.1:3000/login/">go to the market</a>`
     })
 })

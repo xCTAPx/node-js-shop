@@ -13,8 +13,8 @@ const nodemailerTransport = {
     port: 465,
     secure: true,
     auth: {
-        user: 'node_shop@mail.ru',
-        pass: 'M_A_R_K_E_T'
+        user: keys.USER,
+        pass: keys.PASSWORD
     }
 }
 
@@ -25,7 +25,8 @@ module.exports = function (to, message) {
         from: keys.FROM,
         to,
         subject: message.subject,
-        text: message.text
+        text: message?.text,
+        html: message?.html
     };
 
     transport.sendMail(body, (err, info) => {
