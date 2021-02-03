@@ -122,3 +122,12 @@ tr {
   border-radius: 7px;
   background-color: rgb(209, 129, 129);
 }
+
+.login-success {
+  color: rgb(0, 255, 213);
+  text-align: center;
+  padding: 10px;
+  border: 1px solid rgb(0, 255, 55);
+  border-radius: 7px;
+  background-color: rgb(85, 184, 55);
+}

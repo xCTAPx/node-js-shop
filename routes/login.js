@@ -3,6 +3,7 @@ const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 const sendMessage = require('../nodemailer')
 const keys = require('../keys')
+const crypto = require('crypto')
 
 const router = Router()
 
@@ -90,7 +91,89 @@ router.post('/registration', async (req, res) => {
 })
 
 router.get('/reset', (req, res) => {
-    res.render('login/reset')
+    const resetError = req.flash('resetError')
+    const resetSuccess = req.flash('resetSuccess')
+
+    res.render('login/reset', {
+        resetError,
+        resetSuccess
+    })
+})
+
+router.post('/reset', async (req, res) => {
+    const candidate = await User.findOne({ email: req.body.email })
+    if(candidate) {
+        crypto.randomBytes(32, async (err, buffer) => {
+            if (err) throw err
+
+            const resetToken = buffer.toString('hex')
+            const resetTokenExp = Date.now() + 600 * 1000
+
+            candidate.resetToken = resetToken
+            candidate.resetTokenExp = resetTokenExp
+            await candidate.save()
+
+            sendMessage(req.body.email, {
+                subject: 'Reset Password',
+                html: `<h1>Reset password</h1>
+                <p>For restoring password visit link below:</p>
+                <p>If you didn't forget password, please don't pay attention for this letter.</p>
+                <hr/>
+                <a href=${keys.BASE_URL + `password/${resetToken}`}>reset password</a>`
+            })
+        })
+
+        req.flash('resetSuccess', `Letter with link for restoring your password has been sent to email ${req.body.email}`)
+        return res.redirect('/login/reset')
+    } else {
+        req.flash('resetError', 'User with such email does not exist!')
+        return res.redirect('/login/reset')
+    }
+})
+
+router.get('/password/:resetToken', async (req, res) => {
+    const resetToken = req.params.resetToken
+
+    const candidate = await User.findOne({resetToken})
+
+    if(candidate) {
+        res.render('login/password', {
+            resetToken,
+            userId: candidate._id.toString()
+        }) 
+    } else {
+        req.flash('resetError', 'Such user has not found!')
+        return res.redirect('/login/reset')
+    }
+})
+
+router.post('/password', async (req, res) => {
+    const { password, passwordConfirm, resetToken, userId } = req.body
+
+    const candidate = await User.findOne({
+        _id: userId,
+        resetToken,
+        resetTokenExp: {$gt: Date.now()}
+    })
+
+    if(!candidate) {
+        return res.render('login/reset', {
+            resetError: 'Your token has been expired! Try to get new one'
+        })
+    }
+
+    if(password !== passwordConfirm) {
+        req.flash('loginError', 'Password has been confirmed wrong')
+        return res.redirect('/login#login')
+    } else {
+        const newPassword = await bcrypt.hash(password, 10)
+        candidate.password = newPassword
+        candidate.resetToken = undefined
+        candidate.resetTokenExp = undefined
+        await candidate.save()
+
+        return res.redirect('/login#login')
+    }
 })
 
 module.exports = router

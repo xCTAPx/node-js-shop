@@ -1,4 +1,12 @@
-<form class="col s4 offset-s4 login-form" action='/login/new_password' method="POST">
+{{#if resetError}}
+<div class="login-error">{{resetError}}</div>
+{{/if}}
+
+{{#if resetSuccess}}
+<div class="login-success">{{resetSuccess}}</div>
+{{/if}}
+
+<form class="col s4 offset-s4 login-form" action='/login/reset' method="POST">
     <div class="row">
         <div class="row">
             <div class="input-field col s10">
