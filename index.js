@@ -21,8 +21,6 @@ const MongoDBStore = require('connect-mongodb-session')(session)
 const csurf = require('csurf')
 const flash = require('connect-flash')
 
-const isEqualHelper = require('./hbs-helpres.js')
-
 const PORT = process.env.PORT || 3000
 
 const store = new MongoDBStore({
@@ -36,12 +34,10 @@ store.on('error', e => {
 
 const app = express()
 
-Handlebars.registerHelper('isEqual', isEqualHelper)
-
 const hbs = exphbs.create({
     extname: 'hbs',
     defaultLayout: 'main',
-    helpers: require('./hbs-helpres.js'),
+    helpers: require('./utils/hbs-helpres.js'),
     handlebars: allowInsecurePrototypeAccess(Handlebars)
 })
 
