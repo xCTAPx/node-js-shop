@@ -14,8 +14,10 @@
             </div>
             {{#if @root.isAuth}}
             <div class="card-action">
-                <a href='/goods/{{id}}'>More</a>
+                <a href='/goods/{{id}}/more'>More</a>
+                {{#isEqual userId @root.userId}}
                 <a href='/goods/{{id}}/edit?allow=true'>Edit</a>
+                {{/isEqual}}
                 <form method="POST" action="/cart/add">
                     <input type="hidden" name="id" value={{id}}>
                     <input name="_csrf" value={{@root.csrfToken}} type='hidden'>

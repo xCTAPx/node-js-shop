@@ -13,45 +13,52 @@ const mapGoods = cart => cart.items.map(item => ({
 }))
 
 router.get('/', routes, async (req, res) => {
-    const orders = await Order.find({
-        'user.userId': req.user._id
-    })
+    try {
+       const orders = await Order.find({
+            'user.userId': req.user._id
+        })
 
-    res.render('orders', {
-        isOrders: true,
-        orders
-    })
+        res.render('orders', {
+            isOrders: true,
+            orders
+        }) 
+    } catch (e) {
+        console.log(e)
+    } 
 })
 
 router.post('/add', routes, async (req, res) => {
-    
-    const customer = {
-        name: req.user.name,
-        email:req.user.email,
-        userId: req.user._id
-    }
-
-    const cart = await req.user.cart
-    .populate('items.productId', 'name price count')
-    .execPopulate()
-
-    const goods = mapGoods(cart)
-
-    const total = computeTotal(goods)
-
-    const order = new Order({
-        user: customer,
-        order: {
-            products: goods,
-            total
+    try {
+        const customer = {
+            name: req.user.name,
+            email:req.user.email,
+            userId: req.user._id
         }
-    })
-
-    await order.save()
-
-    await req.user.clearCart()
-
-    res.redirect('/orders')
+    
+        const cart = await req.user.cart
+        .populate('items.productId', 'name price count')
+        .execPopulate()
+    
+        const goods = mapGoods(cart)
+    
+        const total = computeTotal(goods)
+    
+        const order = new Order({
+            user: customer,
+            order: {
+                products: goods,
+                total
+            }
+        })
+    
+        await order.save()
+    
+        await req.user.clearCart()
+    
+        res.redirect('/orders')
+    } catch (e) {
+        console.log(e)
+    }
 })
 
 module.exports = router
