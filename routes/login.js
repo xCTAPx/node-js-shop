@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs')
 const sendMessage = require('../nodemailer')
 const keys = require('../keys')
 const crypto = require('crypto')
+const { validationResult } = require('express-validator')
+const loginValidator = require('../utils/login-validation')
 
 const router = Router()
 
@@ -21,22 +23,16 @@ router.get('/',(req, res) => {
     }
 })
 
-router.post('/login', async (req, res) => {
+router.post('/login', loginValidator, async (req, res) => {
     try {
-      const {email, password} = req.body
+        const {email, password} = req.body
 
-        const candidate = await User.findOne({email})
+        const errors = validationResult(req)
 
-        if(!candidate) {
-            req.flash('loginError', 'Wrong email and/or password')
-            return res.redirect('/login#login')
-        }
-
-        const VALID_PASSWORD = await bcrypt.compare(password, candidate.password)
-
-        if(VALID_PASSWORD) {
-            req.session.user = candidate
-            req.session.isAuth = true
+        if (!errors.isEmpty()) {
+            req.flash('loginError', errors.errors[0].msg)
+            return res.status(400).redirect('/login#login')
+        } else {
             req.session.save(e => {
                 if(e) {
                     throw e
@@ -44,10 +40,7 @@ router.post('/login', async (req, res) => {
 
                 res.redirect('/')
             })
-        } else {
-            req.flash('loginError', 'Wrong email and/or password')
-            res.redirect('/login#login')
-        }  
+        } 
     } catch (e) {
         console.log(e)
     }  
