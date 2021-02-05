@@ -33,9 +33,7 @@ router.post('/login', loginValidator, async (req, res) => {
             req.flash('loginError', errors.errors[0].msg)
             return res.status(400).redirect('/login#login')
         } else {
-
-            req.session.isAuth = true
-            req.session.user = req.user
+            
             req.session.save(e => {
                 if(e) {
                     throw e
