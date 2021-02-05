@@ -117,9 +117,12 @@ router.post('/reset', resetValidation, async (req, res) => {
         const errors = validationResult(req)
 
         if (!errors.isEmpty()) {
+            console.log(errors.errors[0].msg)
             req.flash('resetError', errors.errors[0].msg)
             return res.status(400).redirect('/login#register')
         }
+
+        const candidate = await User.findOne({email: req.body.email})
 
             crypto.randomBytes(32, async (err, buffer) => {
                 if (err) throw err
