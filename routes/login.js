@@ -6,6 +6,8 @@ const keys = require('../keys')
 const crypto = require('crypto')
 const { validationResult } = require('express-validator')
 const loginValidator = require('../utils/login-validation')
+const registerValidation = require('../utils/register-validation')
+const resetValidation = require('../utils/reset-validator')
 
 const router = Router()
 
@@ -25,14 +27,15 @@ router.get('/',(req, res) => {
 
 router.post('/login', loginValidator, async (req, res) => {
     try {
-        const {email, password} = req.body
-
         const errors = validationResult(req)
 
         if (!errors.isEmpty()) {
             req.flash('loginError', errors.errors[0].msg)
             return res.status(400).redirect('/login#login')
         } else {
+
+            req.session.isAuth = true
+            req.session.user = req.user
             req.session.save(e => {
                 if(e) {
                     throw e
@@ -56,22 +59,17 @@ router.get('/logout', (req, res) => {
     }
 })
 
-router.post('/registration', async (req, res) => {
+router.post('/registration', registerValidation, async (req, res) => {
     try {
-        const {email, name, password, passwordConfirm} = req.body
+        const errors = validationResult(req)
 
-        const VALID_PASSWORD_CONFIRMATION = password === passwordConfirm
-        const NOT_UNIQUE_EMAIL = await User.findOne({email})
-
-        if(NOT_UNIQUE_EMAIL) {
-            req.flash('registerError', 'User with this email has already registered')
-            return res.redirect('/login#register')
+        if (!errors.isEmpty()) {
+            req.flash('registerError', errors.errors[0].msg)
+            return res.status(400).redirect('/login#register')
         }
 
-        if(!VALID_PASSWORD_CONFIRMATION) {
-            req.flash('registerError', 'Password has been confirmed wrong')
-            return res.redirect('/login#register')
-        }
+        const {email, name, password} = req.body
+
         const encryptedPessword = await bcrypt.hash(password, 10)
 
         const user = new User({
@@ -114,10 +112,15 @@ router.get('/reset', (req, res) => {
     }
 })
 
-router.post('/reset', async (req, res) => {
+router.post('/reset', resetValidation, async (req, res) => {
     try {
-        const candidate = await User.findOne({ email: req.body.email })
-        if(candidate) {
+        const errors = validationResult(req)
+
+        if (!errors.isEmpty()) {
+            req.flash('resetError', errors.errors[0].msg)
+            return res.status(400).redirect('/login#register')
+        }
+
             crypto.randomBytes(32, async (err, buffer) => {
                 if (err) throw err
     
@@ -140,10 +143,6 @@ router.post('/reset', async (req, res) => {
     
             req.flash('resetSuccess', `Letter with link for restoring your password has been sent to email ${req.body.email}`)
             return res.redirect('/login/reset')
-        } else {
-            req.flash('resetError', 'User with such email does not exist!')
-            return res.redirect('/login/reset')
-        }
     } catch (e) {
         console.log(e)
     }  
