@@ -34,6 +34,8 @@ router.post('/login', loginValidator, async (req, res) => {
             return res.status(400).redirect('/login#login')
         } else {
             
+            req.session.isAuth = true
+            req.session.user = await User.findOne({email: req.body.email})
             req.session.save(e => {
                 if(e) {
                     throw e
