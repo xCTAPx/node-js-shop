@@ -5,9 +5,7 @@ const sendMessage = require('../nodemailer')
 const keys = require('../keys')
 const crypto = require('crypto')
 const { validationResult } = require('express-validator')
-const loginValidator = require('../utils/login-validation')
-const registerValidation = require('../utils/register-validation')
-const resetValidation = require('../utils/reset-validator')
+const { loginValidator, registerValidation, resetValidation } = require('../utils/validation')
 
 const router = Router()
 
