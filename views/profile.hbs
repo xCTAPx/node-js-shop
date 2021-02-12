@@ -4,7 +4,7 @@
     <img src="https://3dnews.ru/assets/external/illustrations/2021/01/07/1029487/sm.1.750.jpg" alt="avatar"
         class="avatar">
 
-    <form class="profile-form" action='/login/registration' method="POST">
+    <form class="profile-form" action='/login/registration' method="POST" enctype="multipart/form-data">
         <div class="row">
 
             {{#if profileError}}
@@ -13,7 +13,7 @@
 
             <div class="row">
                 <div class="input-field col s10">
-                    <input id="name" name="name" type="text" class="validate">
+                    <input id="name" name="name" type="text" class="validate" value="{{user.name}}">
                     <label class="active" for="name">Name</label>
                     <span class="helper-text" data-error="Enter name"></span>
                 </div>
