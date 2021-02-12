@@ -10,6 +10,7 @@ const goodsRoute = require('./routes/goods')
 const cartRoute = require('./routes/cart')
 const ordersRoute = require('./routes/orders')
 const loginRoute = require('./routes/login')
+const profileRoute = require('./routes/profile')
 
 const varMiddleware = require('./middlewares/variables')
 const userMiddleware = require('./middlewares/user')
@@ -65,6 +66,7 @@ app.use('/goods', goodsRoute)
 app.use('/cart', cartRoute)
 app.use('/orders', ordersRoute)
 app.use('/login', loginRoute)
+app.use('/profile', profileRoute)
 
 app.use((req, res) => {
     res.status(404).send('Error 404')

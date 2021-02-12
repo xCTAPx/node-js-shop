@@ -13,7 +13,6 @@ router.get('/', async (req, res) => {
             const goods = await Product.find()
             res.render('goods', {
             isGoods: true,
-            title: 'Goods',
             userId: req.user ? req.user._id : null,
             goods
         })

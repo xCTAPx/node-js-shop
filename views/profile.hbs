@@ -1,0 +1,36 @@
+<h2>Profile</h2>
+
+<div class="profile-row">
+    <img src="https://3dnews.ru/assets/external/illustrations/2021/01/07/1029487/sm.1.750.jpg" alt="avatar"
+        class="avatar">
+
+    <form class="profile-form" action='/login/registration' method="POST">
+        <div class="row">
+
+            {{#if profileError}}
+            <div class="login-error">{{profileError}}</div>
+            {{/if}}
+
+            <div class="row">
+                <div class="input-field col s10">
+                    <input id="name" name="name" type="text" class="validate">
+                    <label class="active" for="name">Name</label>
+                    <span class="helper-text" data-error="Enter name"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s10">
+                    <p class="label">Avatar:</p>
+                    <input id="avatar" name="avatar" type="file">
+                </div>
+            </div>
+
+        </div>
+
+        <input name="_csrf" value={{csrfToken}} type='hidden'>
+
+        <button class="btn waves-effect waves-light" type="submit">Edit</button>
+
+    </form>
+</div>

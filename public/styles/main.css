@@ -131,3 +131,23 @@ tr {
   border-radius: 7px;
   background-color: rgb(85, 184, 55);
 }
+
+.avatar {
+  display: block;
+  width: 300px;
+  height: 450px;
+}
+
+.profile-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-form {
+  width: 50%;
+}
+
+.label {
+  margin-bottom: 20px;
+}
