@@ -44,3 +44,11 @@ exports.resetValidation = [
         return user ? Promise.resolve() : Promise.reject('User with such email does not exist!')
     }).normalizeEmail()
 ]
+
+exports.productValidation = [
+    body('name').notEmpty().withMessage('Empty name field!').trim(),
+    body('description').notEmpty().withMessage('Empty description field!').trim(),
+    body('price').notEmpty().withMessage('Empty price field!').trim(),
+    body('price').isNumeric().withMessage('Price is not number!').trim(),
+    body('image').notEmpty().withMessage('Empty name field!').trim(),
+]

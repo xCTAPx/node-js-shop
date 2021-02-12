@@ -1,5 +1,8 @@
 const {Router} = require('express')
+const { validationResult } = require('express-validator')
+const routes = require('../middlewares/routes')
 const Product = require('../models/product')
+const { productValidation } = require('../utils/validation')
 
 const router = Router()
 
@@ -19,7 +22,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:id/more', async (req, res) => {
+router.get('/:id/more', routes, async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
         res.render('product', {
@@ -30,7 +33,7 @@ router.get('/:id/more', async (req, res) => {
     }
 })
 
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', routes, async (req, res) => {
     try {
         const {allow} = req.query
 
@@ -50,8 +53,12 @@ router.get('/:id/edit', async (req, res) => {
     }
 })
 
-router.post('/edit', async (req, res) => {
+router.post('/edit', routes, productValidation, async (req, res) => {
     try {
+        const errors = validationResult(req)
+
+        if(!errors.isEmpty()) return res.status(400).redirect('/goods')
+
         const product = await Product.findById(req.body.id)
 
         if(!checkEqual(req.user._id, product.userId)) {
