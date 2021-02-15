@@ -5,7 +5,7 @@ const sendMessage = require('../nodemailer')
 const keys = require('../keys')
 const crypto = require('crypto')
 const { validationResult } = require('express-validator')
-const { loginValidator, registerValidation, resetValidation } = require('../utils/validation')
+const { loginValidator, registerValidator, resetValidator } = require('../utils/validation')
 
 const router = Router()
 
@@ -57,7 +57,7 @@ router.get('/logout', (req, res) => {
     }
 })
 
-router.post('/registration', registerValidation, async (req, res) => {
+router.post('/registration', registerValidator, async (req, res) => {
     try {
         const errors = validationResult(req)
 
@@ -110,7 +110,7 @@ router.get('/reset', (req, res) => {
     }
 })
 
-router.post('/reset', resetValidation, async (req, res) => {
+router.post('/reset', resetValidator, async (req, res) => {
     try {
         const errors = validationResult(req)
 

@@ -2,7 +2,7 @@ const { Router } = require('express')
 const Product = require('../models/product')
 const routes = require('../middlewares/routes')
 const { validationResult } = require('express-validator')
-const { productValidation } = require('../utils/validation')
+const { productValidator } = require('../utils/validation')
 
 const router = Router()
 
@@ -13,7 +13,7 @@ router.get('/', routes, (req, res) => {
     })
 })
 
-router.post('/', routes, productValidation, async (req, res) => {
+router.post('/', routes, productValidator, async (req, res) => {
     try {
         const errors = validationResult(req)
 

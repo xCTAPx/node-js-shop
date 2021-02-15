@@ -22,7 +22,7 @@ exports.loginValidator = [
     }).trim()
 ]
 
-exports.registerValidation = [
+exports.registerValidator = [
     body('email').custom(async value => {
         const user = await User.findOne({email: value})
 
@@ -36,7 +36,7 @@ exports.registerValidation = [
     }).trim()
 ]
 
-exports.resetValidation = [
+exports.resetValidator = [
     body('email').isEmail().withMessage('Enter correct email!').normalizeEmail(),
     body('email').custom(async value => {
         const user = await User.findOne({email: value})
@@ -45,10 +45,15 @@ exports.resetValidation = [
     }).normalizeEmail()
 ]
 
-exports.productValidation = [
+exports.productValidator = [
     body('name').notEmpty().withMessage('Empty name field!').trim(),
     body('description').notEmpty().withMessage('Empty description field!').trim(),
     body('price').notEmpty().withMessage('Empty price field!').trim(),
     body('price').isNumeric().withMessage('Price is not number!').trim(),
     body('image').notEmpty().withMessage('Empty name field!').trim(),
+]
+
+exports.editProfileValidator = [
+    body('name').notEmpty().withMessage('Name field can not be empty!').trim(),
+    body('name').isAlpha('en-US').withMessage('Enter correct name! (Only english letters)').trim(),
 ]

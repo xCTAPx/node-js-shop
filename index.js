@@ -14,6 +14,7 @@ const profileRoute = require('./routes/profile')
 
 const varMiddleware = require('./middlewares/variables')
 const userMiddleware = require('./middlewares/user')
+const fileMiddlewaer = require('./middlewares/fileParser')
 
 const keys = require('./keys')
 
@@ -46,6 +47,7 @@ app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 
 app.use(express.static('public'))
+app.use('/images', express.static('images'))
 app.use(express.urlencoded({extended: true}))
 
 app.use(session({
@@ -55,6 +57,7 @@ app.use(session({
     store
 }))
 
+app.use(fileMiddlewaer.single('avatar'))
 app.use(csurf())
 app.use(varMiddleware)
 app.use(userMiddleware)

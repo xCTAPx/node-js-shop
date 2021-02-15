@@ -135,7 +135,7 @@ tr {
 .avatar {
   display: block;
   width: 300px;
-  height: 450px;
+  height: 375px;
 }
 
 .profile-row {
@@ -150,4 +150,9 @@ tr {
 
 .label {
   margin-bottom: 20px;
+}
+
+.no-avatar {
+  padding-left: 10%;
+  font-size: 24px;
 }
