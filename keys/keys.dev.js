@@ -7,5 +7,5 @@ module.exports = {
     PASSWORD: 'M_A_R_K_E_T',
     FROM: 'Node Market <node.market@mail.ru>',
     BASE_URL: 'http://127.0.0.1:3000/login/',
-};
+}
   

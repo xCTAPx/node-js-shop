@@ -7,5 +7,5 @@ module.exports = {
     PASSWORD: process.env.PASSWORD,
     FROM: process.env.FROM,
     BASE_URL: process.env.BASE_URL,
-};
+}
   
