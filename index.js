@@ -22,6 +22,8 @@ const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
 const csurf = require('csurf')
 const flash = require('connect-flash')
+const helmet = require('helmet')
+const compression = require('compression')
 
 const PORT = process.env.PORT || 3000
 
@@ -62,6 +64,11 @@ app.use(csurf())
 app.use(varMiddleware)
 app.use(userMiddleware)
 app.use(flash())
+app.use(helmet.hidePoweredBy())
+app.use(helmet.dnsPrefetchControl())
+app.use(helmet.referrerPolicy())
+app.use(helmet.ieNoOpen())
+app.use(compression())
 
 app.use('/', mainRoute)
 app.use('/add', addRoute)
